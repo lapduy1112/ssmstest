@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package ship;
+
+service ShipService {
+  rpc CreateShip(CreateShipRequest) returns (ShipResponse){};
+  rpc UpdateShip(UpdateShipRequest) returns (ShipResponse){};
+  rpc DeleteShip(DeleteShipRequest) returns (DeleteShipResponse){};
+  rpc ListShips(Empty) returns (ListShipsResponse){};
+  rpc FindShip(FindShipRequest) returns (ShipResponse){};
+}
+
+message Ship {
+  int32 id = 1;
+  string name = 2;
+  int32 capacity = 3;
+  string status = 4;
+}
+
+message CreateShipRequest {
+  string name = 1;
+  int32 capacity = 2;
+  string status = 3;
+}
+
+message UpdateShipRequest {
+  int32 id = 1;
+  string name = 2;
+  int32 capacity = 3;
+  string status = 4;
+}
+
+message DeleteShipRequest {
+  int32 id = 1;
+}
+
+message FindShipRequest {
+  int32 id = 1;
+}
+
+message ShipResponse {
+  Ship ship = 1;
+}
+
+message DeleteShipResponse {
+  string message = 1;
+}
+
+message ListShipsResponse {
+  repeated Ship ships = 1;
+}
+
+message Empty {}
