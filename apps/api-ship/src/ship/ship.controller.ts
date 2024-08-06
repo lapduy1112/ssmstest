@@ -1,7 +1,8 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, RpcException } from '@nestjs/microservices';
 import { ShipService } from './ship.service';
 import { CreateShipRequest, UpdateShipRequest } from '@app/common';
+import { status } from '@grpc/grpc-js';
 
 @Controller()
 export class ShipController {
@@ -28,8 +29,7 @@ export class ShipController {
   }
 
   @GrpcMethod('ShipService', 'FindShip')
-  findShip(data: { id: number }) {
-    const ship = this.shipService.FindShip(data.id);
-    return ship;
+  async findShip(data: { id: number }) {
+    return this.shipService.FindShip(data.id);
   }
 }

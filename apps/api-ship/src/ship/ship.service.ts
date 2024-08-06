@@ -46,14 +46,12 @@ export class ShipService {
   async FindShip(id: number) {
     const ship: Ship = await this.shipRepository.findOne({ where: { id } });
     if (!ship) {
-      // throw new HttpException('Ship not found', HttpStatus.NOT_FOUND);
+      // throw new Error('Ship not found!');
       throw new RpcException({
-        statusCode: 404,
-        message: 'Ship not found1',
+        message: 'Resource not found',
       });
     }
-    console.log('No ship found');
-    return { ship };
+    return ship;
   }
 
   async update(

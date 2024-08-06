@@ -7,5 +7,6 @@ export const SHIPPACKAGE: ClientOptions = {
   options: {
     package: SHIP_PACKAGE_NAME,
     protoPath: join(__dirname, '../../ship.proto'),
+    url: '127.0.0.1:5001'
   },
 };

@@ -14,6 +14,8 @@ import {
 import { Client, ClientGrpc, RpcException } from '@nestjs/microservices';
 import { SHIP_SERVICE } from 'apps/api-gateway/src/apiship/constants';
 import { SHIPPACKAGE } from './client';
+import { catchError, Observable, throwError } from 'rxjs';
+import { s } from 'vite/dist/node/types.d-aGj9QkWt';
 
 @Injectable()
 export class ApishipService implements OnModuleInit {
@@ -35,8 +37,16 @@ export class ApishipService implements OnModuleInit {
     return this.shipService.listShips({});
   }
 
-  findOne(id: number) {
+  findOne(id: number): Observable<any> {
     const ship = this.shipService.findShip({ id });
+    // const ship = this.shipService.findShip({ id }).pipe(
+    //   catchError((error) => {
+    //     console.log(error);
+    //     console.error('Error in gRPC call:', error.message);
+    //     return throwError(() => new RpcException('Failed to add ship via gRPC microservice'));
+    //   })
+    // );;
+    // console.log(ship.pipe())
     return ship;
   }
 
